@@ -7,22 +7,20 @@ d3.json("samples.json").then((data) => {
     sampleBellyData.names.forEach(d => {
         option
         .append("option")
-        .attr("value", d)
+        .property("value", d)
         .text(d)
     });
 });
 
 function optionChanged(sel){
-    // getting
-    let row = sampleBellyData.metadata.filter(d => d.id === parseInt(sel))[0];
-    console.log("sampleBellyData.metadata", sampleBellyData.metadata.filter(row => row.id === parseInt(sel)))
-    let row2 = sampleBellyData.samples.filter(d => d.id === sel)[0];
-    console.log("sampleBellyData.samples", sampleBellyData.samples)
-    InfoChart(row);
-    Plots(row2);
+    // getting data for the information chart and the plots
+    let metadata = sampleBellyData.metadata.filter(d => d.id === parseInt(sel))[0];
+    let samples = sampleBellyData.samples.filter(d => d.id === sel)[0];
+    InfoChart(metadata);
+    Plots(samples);
 }
 
-// Infromation Chart
+// Information Chart
 function InfoChart(data){
     let option = d3.select("#sample-metadata"); 
     let entries_data = Object.entries(data);
